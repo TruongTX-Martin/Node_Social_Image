@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express();
+const reposFactory = require('../../repositories/RepositoryFactory');
 const { 
     responseError,
     responseLogin,
@@ -73,5 +74,11 @@ app.post('/sign-in', (req, res, next) => {
         res.send(responseError(false, null, errors));
     }
 })
+
+app.get('/get_users', (req, res, next) => {
+    reposFactory.auth.getAllUser(req, res, next);
+})
+
+
 
 module.exports = app;
