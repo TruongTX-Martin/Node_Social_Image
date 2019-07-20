@@ -3,7 +3,6 @@ const User = db.user;
 const authRepository = function () {
 
     const getAllUser = function (req, res, next) {
-        console.log('Auth repository get all user');
         User.findAll().then(users => {
             // Send all customers to Client
             console.log('User:', users);
@@ -15,6 +14,7 @@ const authRepository = function () {
         getAllUser
     };
 }
-
 module.exports = authRepository();
+
+
 
