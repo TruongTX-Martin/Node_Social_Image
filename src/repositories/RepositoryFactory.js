@@ -1,12 +1,14 @@
-const repositoryFactory = function() {
-    const repos = this;
+import authRepo from './AuthRepository';
+const repositoryFactory = () => {
+    const repos = [];
     const repositories = [
-        { name: "auth", source:  require('./AuthRepository')}
+        { name: "auth", source:  authRepo}
     ];
 
     repositories.forEach(function(repo) {
         repos[repo.name] = repo.source;
-     });
+    });
+    return repos;
 }
 
-module.exports = new repositoryFactory();
+export default new repositoryFactory();

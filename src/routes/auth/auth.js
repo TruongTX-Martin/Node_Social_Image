@@ -1,6 +1,6 @@
-var express = require('express')
-var app = express();
-const reposFactory = require('../../repositories/RepositoryFactory');
+import express from 'express';
+import reposFactory from '../../repositories/RepositoryFactory';
+const  app = express();
 const { 
     responseError,
     responseLogin,

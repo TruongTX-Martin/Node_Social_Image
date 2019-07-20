@@ -1,20 +1,14 @@
-const db = require('../../models/index');
-const User = db.user;
-const authRepository = function () {
-
-    const getAllUser = function (req, res, next) {
-        User.findAll().then(users => {
-            // Send all customers to Client
-            console.log('User:', users);
-            res.send(users);
-        });
-    }
-
-    return {
-        getAllUser
-    };
+import database from '../../models/index';
+const User = database.user;
+const getAllUser = async (req, res, next) => {
+    const users = await User.findAll();
+    res.send(users);
 }
-module.exports = authRepository();
 
+const authRepository = {
+    getAllUser
+}
+
+export default authRepository;
 
 

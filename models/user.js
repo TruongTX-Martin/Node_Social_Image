@@ -9,10 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     is_actived: DataTypes.BOOLEAN
-  }, {
-    freezeTableName: true,
-    tableName: 'user'
-  });
+  }, {}
+  );
   user.associate = function(models) {
     // associations can be defined here
   };
