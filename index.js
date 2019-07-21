@@ -1,39 +1,7 @@
 const express = require('express')
 const app = express()
 
-const mysql = require('mysql')
-
-/**
- * This middleware provides a consistent API 
- * for MySQL connections during request/response life cycle
- */ 
-const myConnection  = require('express-myconnection')
-
-/**
- * Store database credentials in a separate config.js file
- * Load the file/module and its values
- */ 
-// var {configDB} = require('./src/config')
-// var dbOptions = {
-// 	host:	  configDB.database.host,
-// 	user: 	  configDB.database.user,
-// 	password: configDB.database.password,
-// 	port: 	  configDB.database.port, 
-// 	database: configDB.database.db
-// }
-
-/**
- * 3 strategies can be used
- * single: Creates single database connection which is never closed.
- * pool: Creates pool of connections. Connection is auto release when response ends.
- * request: Creates new connection per new request. Connection is auto close when response ends.
- */ 
-// app.use(myConnection(mysql, dbOptions, 'pool'))
-
-
 const routeAuth = require('./src/routes/auth/auth')
-
-
 /**
  * Express Validator Middleware for Form Validation
  */ 
