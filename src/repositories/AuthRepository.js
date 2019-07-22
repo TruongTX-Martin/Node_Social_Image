@@ -7,7 +7,7 @@ import {
     generateAccessToken,
     decodeToken
 } from '../utils';
-const User = database.user;
+const User = database.users;
 const getAllUser = async (req, res, next) => {
     const users = await User.findAll();
     res.send(users);

@@ -5,7 +5,6 @@ const  { StatusCode, GENERAL }  = require('../constants');
 
 
 const generatePasswordSync = (password) => {
-    console.log('Salt:', salt);
     return bcrypt.hashSync(password, salt);
 }
 
@@ -26,9 +25,42 @@ const decodeToken = (token) => {
     })
 }
 
+const checkStatusToken = (req, res, err, decoded) => {
+    if(err){
+        res.send(responseUnAuthorization(false, null, 'Invalid token'));
+        return false;
+    }
+    const expriedDate = decoded.exp;
+    const currentDate = Math.floor(Date.now() / 1000);
+    if(expriedDate < currentDate){
+        res.send(responseError(false, null, 'Token expired'));
+        return false;
+    }
+    return true;
+}
+
+const checkToken = (req, res) => {
+    let token = req.get('authorization');
+    if(!token){
+        res.send(responseUnAuthorization(false, null, 'Not authorization'));
+        return null;
+    }
+    token = token.replace('bearer','').trim();
+    return token;
+}
+
 const responseError = (isSuccess = true , message = null, error = null) => {
     return {
         status: StatusCode.SUCCESS,
+        isSuccess: isSuccess,
+        message: message,
+        error: error
+    }
+}
+
+const responseUnAuthorization = (isSuccess = true , message = null, error = null) => {
+    return {
+        status: StatusCode.UN_AUTHORIZED,
         isSuccess: isSuccess,
         message: message,
         error: error
@@ -49,8 +81,11 @@ const responseLogin = (isSuccess = true , message = null, error = null, token ) 
 module.exports = { 
     responseError,
     responseLogin,
+    responseUnAuthorization,
     generatePasswordSync,
     comparePassword, 
     generateAccessToken,
-    decodeToken
+    decodeToken,
+    checkStatusToken,
+    checkToken
 };

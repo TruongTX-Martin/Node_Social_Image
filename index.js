@@ -1,11 +1,17 @@
-const express = require('express')
+import express  from 'express';
+import expressValidator from 'express-validator';
+import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
+
+import routeAuth from './src/routes/auth';
+import routeAlbum from './src/routes/album';
+
+
 const app = express()
 
-const routeAuth = require('./src/routes/auth/auth')
 /**
  * Express Validator Middleware for Form Validation
  */ 
-var expressValidator = require('express-validator')
 app.use(expressValidator())
 
 
@@ -14,7 +20,6 @@ app.use(expressValidator())
  * it's an express middleware that reads form's input 
  * and store it as javascript object
  */ 
-var bodyParser = require('body-parser')
 
 /**
  * bodyParser.urlencoded() parses the text as URL encoded data 
@@ -28,8 +33,6 @@ app.use(bodyParser.json())
  * This module let us use HTTP verbs such as PUT or DELETE 
  * in places where they are not supported
  */ 
-var methodOverride = require('method-override')
-
 /**
  * using custom logic to override method
  * 
@@ -46,6 +49,7 @@ app.use(methodOverride(function (req, res) {
   }))
 
   app.use('/auth', routeAuth);
+  app.use('/album', routeAlbum);
 
   app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')
