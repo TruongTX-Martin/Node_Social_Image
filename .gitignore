@@ -1,4 +1,5 @@
 node_modules/
+public/images/
 yarn.lock 
 yarn-error.log
 dist/
