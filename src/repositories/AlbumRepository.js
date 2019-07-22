@@ -5,7 +5,9 @@ import {
     checkStatusToken,
     checkToken
 } from '../utils';
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import Resize from './middleware/ResizeImage';
+import path from 'path';
 
 const Album = database.albums;
 
@@ -32,10 +34,19 @@ const createAlbum = async (req, res, next) => {
         }
     });
 }
-
+const uploadImage = async (req, res) => {
+    const imagePath = path.join(process.cwd(), '/public/images');
+    const fileUpload = new Resize(imagePath);
+    if (!req.file) {
+      res.send(responseError(false, null, 'Please provide an image'));
+    }
+    const filename = await fileUpload.save(req.file.buffer);
+    return res.status(200).json({ name: filename });
+}
 
 const albumRepository = {
     createAlbum,
+    uploadImage
 }
 
 export default albumRepository;

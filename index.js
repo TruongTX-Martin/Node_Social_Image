@@ -7,7 +7,7 @@ import routeAuth from './src/routes/auth';
 import routeAlbum from './src/routes/album';
 
 
-const app = express()
+const app = express();
 
 /**
  * Express Validator Middleware for Form Validation
@@ -28,6 +28,9 @@ app.use(expressValidator())
  */ 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+
+app.use(express.static('public'));
 
 /**
  * This module let us use HTTP verbs such as PUT or DELETE 
@@ -53,4 +56,5 @@ app.use(methodOverride(function (req, res) {
 
   app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')
-})
+  }
+)

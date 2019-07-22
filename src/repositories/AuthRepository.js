@@ -5,7 +5,6 @@ import {
     generatePasswordSync,
     comparePassword,
     generateAccessToken,
-    decodeToken
 } from '../utils';
 const User = database.users;
 const getAllUser = async (req, res, next) => {
