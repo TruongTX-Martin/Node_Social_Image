@@ -7,6 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     } ,
     email: DataTypes.STRING,
+    name: DataTypes.STRING,
+    profile_image: DataTypes.STRING,
     password: DataTypes.STRING,
     is_actived: DataTypes.BOOLEAN
   }, {}

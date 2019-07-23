@@ -6,14 +6,16 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    title: DataTypes.STRING,
-    caption: DataTypes.STRING,
     path: DataTypes.STRING,
+    post_id: DataTypes.BIGINT(20),
     deleted_at: {
       type: DataTypes.DATE,
       defaultValue: 0
     },
-    album_id: DataTypes.BIGINT(20),
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: 0
+    },
 
   }, {});
   images.associate = function(models) {

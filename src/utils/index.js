@@ -78,6 +78,11 @@ const responseLogin = (isSuccess = true , message = null, error = null, token ) 
     }
 }
 
+const capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
+  }
+
 module.exports = { 
     responseError,
     responseLogin,
@@ -87,5 +92,6 @@ module.exports = {
     generateAccessToken,
     decodeToken,
     checkStatusToken,
-    checkToken
+    checkToken,
+    capitalize
 };

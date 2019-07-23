@@ -5,6 +5,7 @@ import {
     generatePasswordSync,
     comparePassword,
     generateAccessToken,
+    capitalize
 } from '../utils';
 const User = database.users;
 const getAllUser = async (req, res, next) => {
@@ -17,14 +18,12 @@ const signIn = async (req, res, next) => {
     req.assert('password', 'Password cannot empty').notEmpty();
     const errors = req.validationErrors();
     if (!errors) {
-        const user = {
-            email: req.sanitize('email').escape().trim(),
-            password: req.sanitize('password').escape().trim(),
-        }
-        const users = await User.findOne({ where: { email: user.email } });
+        const email = req.sanitize('email').escape().trim();
+        const password = req.sanitize('password').escape().trim();
+        const users = await User.findOne({ where: { email: email } });
         if (users) {
             const currentUser = users.dataValues;
-            const match = comparePassword(user.password, currentUser.password);
+            const match = comparePassword(password, currentUser.password);
             if (match) {
                 const accessToken = generateAccessToken(currentUser.id);
                 res.send(responseLogin(true, null, 'Login success', accessToken))
@@ -44,17 +43,16 @@ const signUp = async (req, res, next) => {
     req.assert('password', 'Password cannot empty').notEmpty();
     const errors = req.validationErrors();
     if (!errors) {
-        const user = {
-            email: req.sanitize('email').escape().trim(),
-            password: req.sanitize('password').escape().trim(),
-        }
-        const hash = generatePasswordSync(user.password);
-        const users = await User.findOne({ where: { email: user.email } });
+        const email = req.sanitize('email').escape().trim();
+        const password = req.sanitize('password').escape().trim();
+        const hash = generatePasswordSync(password);
+        const name = email.substring(0, email.indexOf('@'));
+        const users = await User.findOne({ where: { email: email } });
         if (users) {
             res.send(responseError(false, null, 'Your email register has exited. Please use other email to register'));
         } else {
-            User.create({ email: user.email, password: hash, is_actived: false });
-            res.send(responseError(true, null, 'Register success'))
+           User.create({ email: email, name: capitalize(name), password: hash, is_actived: false });
+           res.send(responseError(true, null, 'Register success'))
         }
     } else {
         res.send(responseError(false, null, errors));
