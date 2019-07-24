@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 
 import routeAuth from './src/routes/auth';
-import routeAlbum from './src/routes/album';
+import routePost from './src/routes/post';
 
 
 const app = express();
@@ -52,7 +52,7 @@ app.use(methodOverride(function (req, res) {
   }))
 
   app.use('/auth', routeAuth);
-  app.use('/album', routeAlbum);
+  app.use('/post', routePost);
 
   app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')

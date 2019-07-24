@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     post_id: DataTypes.BIGINT(20),
     deleted_at: {
       type: DataTypes.DATE,
-      defaultValue: 0
+      defaultValue: null,
     },
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: 0
+      defaultValue: Math.floor(Date.now() / 1000)
     },
 
   }, {});

@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.BIGINT(20),
     created_at: {
       type: DataTypes.DATE,
-      defaultValue: 0
+      defaultValue: Math.floor(Date.now() / 1000)
     },
     deleted_at: {
       type: DataTypes.DATE,
-      defaultValue: 0
+      defaultValue: null,
     },
   }, {});
   album.associate = function(models) {

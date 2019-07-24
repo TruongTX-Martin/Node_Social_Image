@@ -1,10 +1,10 @@
 import authRepo from './AuthRepository';
-import albumRepo from './AlbumRepository';
+import postRepo from './PostRepository';
 const repositoryFactory = () => {
     const repos = [];
     const repositories = [
         { name: "auth", source:  authRepo},
-        { name: "album", source:  albumRepo}
+        { name: "post", source:  postRepo}
     ];
 
     repositories.forEach(function(repo) {
