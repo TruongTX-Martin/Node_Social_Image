@@ -5,6 +5,8 @@ import methodOverride from 'method-override';
 
 import routeAuth from './src/routes/auth';
 import routePost from './src/routes/post';
+import routeImage from './src/routes/image';
+import routerUser from './src/routes/user';
 
 
 const app = express();
@@ -53,6 +55,8 @@ app.use(methodOverride(function (req, res) {
 
   app.use('/auth', routeAuth);
   app.use('/post', routePost);
+  app.use('/image', routeImage);
+  app.use('/user', routerUser);
 
   app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')

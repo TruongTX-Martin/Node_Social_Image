@@ -60,7 +60,7 @@ const createPost = async (req, res) => {
                         post_id: postId,
                     };
                 });
-                const createImage = await Image.bulkCreate(paramsImage);
+                await Image.bulkCreate(paramsImage);
                 res.send(responseError(true, null, "Create new post success"));
             }
 
