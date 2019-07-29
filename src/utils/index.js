@@ -1,5 +1,6 @@
-const bcrypt = require('bcryptjs');
-const  jwt  =  require('jsonwebtoken');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
 var salt = bcrypt.genSaltSync(10);
 const  { StatusCode, GENERAL }  = require('../constants');
 
@@ -21,7 +22,6 @@ const generateAccessToken = (userId) => {
 const decodeToken = (token) => {
     jwt.verify(token, GENERAL.SECRET_KEY,(error, decode) => {
         if(error) throw new Error(error);
-        console.log('Decode :', decode);
     })
 }
 
@@ -47,6 +47,28 @@ const checkToken = (req, res) => {
     }
     token = token.replace('bearer','').trim();
     return token;
+}
+
+const validateToken = (req, res, result) => {
+    let token = req.get('authorization');
+    if(!token){
+        res.send(responseUnAuthorization(false, null, 'Not authorization'));
+        result(null);
+    }
+    token = token.replace('bearer','').trim();
+    jwt.verify(token, GENERAL.SECRET_KEY,  (err, decoded)  => {
+        if(err){
+            res.send(responseUnAuthorization(false, null, 'Invalid token'));
+            result(null);
+        }
+        const expriedDate = decoded.exp;
+        const currentDate = Math.floor(Date.now() / 1000);
+        if(expriedDate < currentDate){
+            res.send(responseError(false, null, 'Token expired'));
+            result(null);
+        }
+        result(decoded);
+    });
 }
 
 const responseError = (isSuccess = true , message = null, error = null) => {
@@ -93,5 +115,6 @@ module.exports = {
     decodeToken,
     checkStatusToken,
     checkToken,
-    capitalize
+    capitalize,
+    validateToken
 };
