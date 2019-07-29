@@ -10,8 +10,4 @@ app.post('/sign-in', (req, res, next) => {
     reposFactory.auth.signIn(req, res, next);
 })
 
-app.get('/get_users', (req, res, next) => {
-    reposFactory.auth.getAllUser(req, res, next);
-})
-
 module.exports = app;

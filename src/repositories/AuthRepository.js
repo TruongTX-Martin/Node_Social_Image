@@ -8,11 +8,6 @@ import {
     capitalize
 } from '../utils';
 const User = database.users;
-const getAllUser = async (req, res, next) => {
-    const users = await User.findAll();
-    res.send(users);
-}
-
 const signIn = async (req, res, next) => {
     req.assert('email', 'A valid Email is required').isEmail();
     req.assert('password', 'Password cannot empty').notEmpty();
@@ -60,7 +55,6 @@ const signUp = async (req, res, next) => {
 }
 
 const authRepository = {
-    getAllUser,
     signIn,
     signUp
 }

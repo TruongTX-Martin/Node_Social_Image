@@ -1,15 +1,22 @@
 import database from '../../models/index';
-const User = database.users;
+import Resize from './middleware/ResizeImage';
+import path from 'path';
+import {
+    responseError,
+} from '../utils';
 
-const signIn = async (req, res, next) => {
-}
-
-const signUp = async (req, res, next) => {
+const uploadImage = async (req, res) => {
+    const imagePath = path.join(process.cwd(), '/public/images');
+    const fileUpload = new Resize(imagePath);
+    if (!req.file) {
+      res.send(responseError(false, null, 'Please provide an image'));
+    }
+    const filename = await fileUpload.save(req.file.buffer);
+    return res.status(200).json({ name: filename });
 }
 
 const imageRepository = {
-    signIn,
-    signUp
+    uploadImage,
 }
 
 export default imageRepository;

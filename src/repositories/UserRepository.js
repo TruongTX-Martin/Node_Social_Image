@@ -4,14 +4,10 @@ const User = database.users;
 const signIn = async (req, res, next) => {
 }
 
-const signUp = async (req, res, next) => {
-}
-
-const imageRepository = {
+const userRepository = {
     signIn,
-    signUp
 }
 
-export default imageRepository;
+export default userRepository;
 
 
