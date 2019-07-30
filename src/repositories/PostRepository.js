@@ -7,6 +7,8 @@ import {
 import jwt from 'jsonwebtoken';
 
 const Post = database.posts;
+const PostLikes = database.post_likes;
+const Comment = database.comments;
 const Image = database.images;
 
 
@@ -43,8 +45,70 @@ const createPost = async (req, res) => {
     });
 }
 
+const likePost = (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const userId = user.id;
+        const postId = req.sanitize('post_id').escape().trim();
+        const postRow = await PostLikes.findAll({
+            where: {
+                user_id: userId,
+                post_id: postId
+            }
+         })
+        if(postRow.length > 0){
+            res.send(responseError(false, null, 'User has liked this post'));
+        }else{
+            PostLikes.create({post_id: postId, user_id: userId  });
+            res.send(responseError(true, null, 'Like post success'));
+        }
+    })
+}
+
+const unlikePost = (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const userId = user.id;
+        const postId = req.sanitize('post_id').escape().trim();
+        const postRow = await PostLikes.findAll({
+            where: {
+                user_id: userId,
+                post_id: postId
+            }
+         })
+        if(postRow.length > 0){
+            PostLikes.destroy({
+                where: {
+                    user_id: userId,
+                    post_id: postId
+                }
+             })
+            res.send(responseError(true, null, 'Unlike success'));
+        }else{
+            res.send(responseError(false, null, 'User does not like this post before'));
+        }
+    })
+}
+const commentPost = (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const userId = user.id;
+        const postId = req.sanitize('post_id').escape().trim();
+        const comment = req.sanitize('comment').escape().trim();
+        Comment.create({
+            comment: comment,
+            post_id: postId,
+            user_id_comment: userId,
+        })
+        res.send(responseError(true, null, 'Comment success'));
+    })
+}
+
 const postRepository = {
-    createPost
+    createPost,
+    likePost,
+    unlikePost,
+    commentPost
 }
 
 export default postRepository;

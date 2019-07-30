@@ -5,6 +5,9 @@ import {
     responseError,
 } from '../utils';
 
+const ImageLikes = database.image_likes;
+const Comment = database.comments;
+
 const uploadImage = async (req, res) => {
     const imagePath = path.join(process.cwd(), '/public/images');
     const fileUpload = new Resize(imagePath);
@@ -18,24 +21,19 @@ const uploadImage = async (req, res) => {
 const likeImage = (req, res, next) => {
     validateToken(req, res, async (user) => {
         if(!user) return;
-        const followerId = user.id;
-        const followingId = req.sanitize('following_id').escape().trim();
-        const followRow = await Follow.findAll({
+        const userId = user.id;
+        const imageId = req.sanitize('image_id').escape().trim();
+        const imageRow = await ImageLikes.findAll({
             where: {
-                follower_id: followerId,
-                following_id: followingId
+                user_id: userId,
+                image_id: imageId
             }
          })
-        if(followRow.length > 0){
-            Follow.destroy({
-                where: {
-                    follower_id: followerId,
-                    following_id: followingId
-                }
-             })
-            res.send(responseError(true, null, 'UnFollow successs'));
+        if(imageRow.length > 0){
+            res.send(responseError(false, null, 'User has liked this image'));
         }else{
-            res.send(responseError(false, null, 'Follow status currently empty'));
+            ImageLikes.create({image_id: imageId, user_id: userId  });
+            res.send(responseError(true, null, 'Like image success'));
         }
     })
 }
@@ -43,32 +41,48 @@ const likeImage = (req, res, next) => {
 const unlikeImage = (req, res, next) => {
     validateToken(req, res, async (user) => {
         if(!user) return;
-        const followerId = user.id;
-        const followingId = req.sanitize('following_id').escape().trim();
-        const followRow = await Follow.findAll({
+        const userId = user.id;
+        const imageId = req.sanitize('image_id').escape().trim();
+        const imageRow = await ImageLikes.findAll({
             where: {
-                follower_id: followerId,
-                following_id: followingId
+                user_id: userId,
+                image_id: imageId
             }
          })
-        if(followRow.length > 0){
-            Follow.destroy({
+        if(imageRow.length > 0){
+            ImageLikes.destroy({
                 where: {
-                    follower_id: followerId,
-                    following_id: followingId
+                    user_id: userId,
+                    image_id: imageId
                 }
              })
-            res.send(responseError(true, null, 'UnFollow successs'));
+            res.send(responseError(true, null, 'Unlike success'));
         }else{
-            res.send(responseError(false, null, 'Follow status currently empty'));
+            res.send(responseError(false, null, 'User does not like this image before'));
         }
+    })
+}
+
+const commentImage = (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const userId = user.id;
+        const imageId = req.sanitize('image_id').escape().trim();
+        const comment = req.sanitize('comment').escape().trim();
+        Comment.create({
+            comment: comment,
+            image_id: imageId,
+            user_id_comment: userId,
+        })
+        res.send(responseError(true, null, 'Comment success'));
     })
 }
 
 const imageRepository = {
     uploadImage,
     likeImage,
-    unlikeImage
+    unlikeImage,
+    commentImage
 }
 
 export default imageRepository;
