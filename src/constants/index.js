@@ -8,7 +8,7 @@ const StatusCode = {
 
 const GENERAL = {
     SECRET_KEY: 'SocialImage',
-    TOKEN_EXPIRED: 24 * 60 * 60,
+    TOKEN_EXPIRED: 365 * 24 * 60 * 60,
 }
 
 module.exports = { StatusCode, GENERAL }

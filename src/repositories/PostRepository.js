@@ -1,6 +1,7 @@
 import database from '../../models/index';
 import {
     responseError,
+    responseData,
     checkStatusToken,
     checkToken
 } from '../utils';
@@ -104,11 +105,22 @@ const commentPost = (req, res, next) => {
     })
 }
 
+const getListPostHome = (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const postRow = await Post.findAll();
+        res.send(responseData(true, null, null, postRow));
+    })
+}
+
+
+
 const postRepository = {
     createPost,
     likePost,
     unlikePost,
-    commentPost
+    commentPost,
+    getListPostHome
 }
 
 export default postRepository;

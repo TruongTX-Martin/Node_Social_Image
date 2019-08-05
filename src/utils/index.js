@@ -79,6 +79,16 @@ const responseError = (isSuccess = true , message = null, error = null) => {
         error: error
     }
 }
+const responseData = (isSuccess = true , message = null, error = null, data = []) => {
+    return {
+        status: StatusCode.SUCCESS,
+        isSuccess: isSuccess,
+        data: data,
+        message: message,
+        error: error
+    }
+}
+
 
 const responseUnAuthorization = (isSuccess = true , message = null, error = null) => {
     return {
@@ -108,6 +118,7 @@ const capitalize = (s) => {
 module.exports = { 
     responseError,
     responseLogin,
+    responseData,
     responseUnAuthorization,
     generatePasswordSync,
     comparePassword, 
