@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "admin",
+    "password": "truongtechno",
     "database": "social_images",
-    "host": "127.0.0.1",
+    "host": "socialimages.cymwm0pkxnd6.us-east-2.rds.amazonaws.com",
     "dialect": "mysql",
     "operatorsAliases": false,
     "define": {

@@ -3,3 +3,8 @@ public/images/
 yarn.lock 
 yarn-error.log
 dist/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
