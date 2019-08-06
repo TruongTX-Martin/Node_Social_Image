@@ -4,7 +4,6 @@
   "description": "Social image: people can up, show, like image ",
   "main": "index.js",
   "scripts": {
-    "clear": "rimraf",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/index.js"
@@ -23,6 +22,7 @@
     "method-override": "^3.0.0",
     "multer": "^1.4.2",
     "mysql2": "^1.6.5",
+    "rimraf": "^2.6.3",
     "sequelize": "^5.10.1",
     "sequelize-cli": "^5.5.0",
     "sharp": "^0.22.1",
