@@ -58,7 +58,7 @@ app.use(methodOverride(function (req, res) {
   app.use('/image', routeImage);
   app.use('/user', routerUser);
 
-  app.listen(8081, function(){
+  app.listen(3000, function(){
 	console.log('Server running at port 3000: http://127.0.0.1:3000')
   }
 )
