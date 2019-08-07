@@ -9,39 +9,37 @@ import {
 aws.config.update({
     accessKeyId: "AKIAIFBIMIDFCN2VBQSA",
     secretAccessKey: "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",
-}); 
+});
 const s3 = new aws.S3();
 const ImageLikes = database.image_likes;
 const Comment = database.comments;
 
 const uploadImage = async (req, res) => {
-    // const myBucket = 'truongtechnosocialimage';
-    // const myKey = './rootkey.csv';
-    // const params = {
-    //     Bucket: myBucket,
-    //     Key: myKey,
-    //     // ServerSideEncryption: "AES256",
-    //     Body: req.file.buffer,
-    //     // Expires: 60,
-    //     // ContentType: 'image/jpeg',
-    //     // ACL: 'public-read'
-    // }
-    // s3.putObject(params, function (err, data) {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         console.log("Successfully uploaded data to myBucket/myKey:", data);
+    validateToken(req, res, async (user) => {
+        if (!user) return;
+        const time = new Date().getTime();
+        const newName = req.file.originalname.split('.');
+        const extension = newName[newName.length - 1];
+        const name = time + '.' + extension;
+        const myBucket = 'truongtechnosocialimage';
+        const params = {
+            Bucket: myBucket,
+            Key: name,
+            Body: req.file.buffer,
+            ACL: 'public-read',
+            ContentType: req.file.mimetype
+        }
+        s3.putObject(params, function (err, data) {
+            if (err) {
+                console.log(err)
+                res.send(responseError(false, null, 'Something error'));
+            } else {
+                const url = 'https://truongtechnosocialimage.s3.us-east-2.amazonaws.com/' + name;
+                res.send(responseError(true, url, null));
 
-    //     }
-    // });
-
-    // const imagePath = path.join(process.cwd(), '/public/images');
-    // const fileUpload = new Resize(imagePath);
-    // if (!req.file) {
-    //   res.send(responseError(false, null, 'Please provide an image'));
-    // }
-    // const filename = await fileUpload.save(req.file.buffer);
-    // return res.status(200).json({ name: filename });
+            }
+        });
+    })
 }
 
 const likeImage = (req, res, next) => {
