@@ -2,12 +2,12 @@
   "name": "com.truongtechno.socialimage",
   "version": "1.0.0",
   "description": "Social image: people can up, show, like image ",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "babel-version": "babel --version",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node dist/index.js"
+    "build": "./node_modules/.bin/babel --presets=@babel/env --plugins=@babel/plugin-proposal-class-properties -d dist/ src/",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -30,9 +30,10 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1"
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5"
   }
 }
