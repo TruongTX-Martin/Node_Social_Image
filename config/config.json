@@ -3,7 +3,7 @@
     "username": "admin",
     "password": "truongtechno",
     "database": "social_images",
-    "host": "socialimages.cymwm0pkxnd6.us-east-2.rds.amazonaws.com",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false,
     "define": {
@@ -20,11 +20,15 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "admin",
+    "password": "truongtechno",
+    "database": "social_images",
+    "host": "socialimages.cymwm0pkxnd6.us-east-2.rds.amazonaws.com",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "define": {
+      "timestamps": false,
+      "freezeTableName": true
+    }
   }
 }
