@@ -4,6 +4,7 @@ import aws from 'aws-sdk';
 import path from 'path';
 import {
     responseError,
+    validateToken
 } from '../utils';
 
 aws.config.update({
@@ -31,7 +32,6 @@ const uploadImage = async (req, res) => {
         }
         s3.putObject(params, function (err, data) {
             if (err) {
-                console.log(err)
                 res.send(responseError(false, null, 'Something error'));
             } else {
                 const url = 'https://truongtechnosocialimage.s3.us-east-2.amazonaws.com/' + name;

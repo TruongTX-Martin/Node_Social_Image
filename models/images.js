@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: Math.floor(Date.now() / 1000)
     },
 
-  }, {});
+  }, {
+    underscored: true
+  });
   images.associate = function(models) {
     // associations can be defined here
   };

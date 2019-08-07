@@ -16,7 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       defaultValue: null,
     },
-  }, {});
+  }, {
+    underscored: true
+  });
   album.associate = function(models) {
     // associations can be defined here
   };

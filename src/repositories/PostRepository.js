@@ -3,7 +3,8 @@ import {
     responseError,
     responseData,
     checkStatusToken,
-    checkToken
+    checkToken,
+    validateToken
 } from '../utils';
 import jwt from 'jsonwebtoken';
 
@@ -105,10 +106,14 @@ const commentPost = (req, res, next) => {
     })
 }
 
-const getListPostHome = (req, res, next) => {
+const getListPostHome = async (req, res, next) => {
     validateToken(req, res, async (user) => {
         if(!user) return;
-        const postRow = await Post.findAll();
+        const postRow = await Post.findAll({
+            include: [
+                {model: Image}
+            ]
+        });
         res.send(responseData(true, null, null, postRow));
     })
 }

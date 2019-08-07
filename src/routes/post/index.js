@@ -11,4 +11,8 @@ app.post('/upload_image', upload.single('image'), (req, res, next) => {
     reposFactory.post.uploadImage(req, res);
 })
 
+app.get('/get_all_home', (req, res, next) => {
+    reposFactory.post.getListPostHome(req, res);
+})
+
 module.exports = app;
