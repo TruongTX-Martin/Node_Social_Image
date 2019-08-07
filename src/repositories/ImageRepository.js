@@ -34,8 +34,7 @@ const uploadImage = async (req, res) => {
             if (err) {
                 res.send(responseError(false, null, 'Something error'));
             } else {
-                const url = 'https://truongtechnosocialimage.s3.us-east-2.amazonaws.com/' + name;
-                res.send(responseError(true, url, null));
+                res.send(responseError(true, name, null));
 
             }
         });
