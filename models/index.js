@@ -34,6 +34,9 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.posts.belongsTo(db.users);  
+db.users.hasMany(db.posts); 
+
 db.images.belongsTo(db.posts);  
 db.posts.hasMany(db.images); 
 

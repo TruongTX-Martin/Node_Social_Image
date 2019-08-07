@@ -12,6 +12,7 @@ const Post = database.posts;
 const PostLikes = database.post_likes;
 const Comment = database.comments;
 const Image = database.images;
+const User = database.users;
 
 
 const createPost = async (req, res) => {
@@ -111,7 +112,8 @@ const getListPostHome = async (req, res, next) => {
         if(!user) return;
         const postRow = await Post.findAll({
             include: [
-                {model: Image}
+                {model: Image},
+                {model: User}
             ]
         });
         res.send(responseData(true, null, null, postRow));
