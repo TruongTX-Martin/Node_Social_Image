@@ -15,25 +15,25 @@ const ImageLikes = database.image_likes;
 const Comment = database.comments;
 
 const uploadImage = async (req, res) => {
-    const myBucket = 'truongtechnosocialimage';
-    const myKey = './rootkey.csv';
-    const params = {
-        Bucket: myBucket,
-        Key: myKey,
-        ServerSideEncryption: "AES256",
-        Body: req.file.buffer,
-        Expires: 60,
-        ContentType: 'image/jpeg',
-        ACL: 'public-read'
-    }
-    s3.putObject(params, function (err, data) {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log("Successfully uploaded data to myBucket/myKey:", data);
+    // const myBucket = 'truongtechnosocialimage';
+    // const myKey = './rootkey.csv';
+    // const params = {
+    //     Bucket: myBucket,
+    //     Key: myKey,
+    //     // ServerSideEncryption: "AES256",
+    //     Body: req.file.buffer,
+    //     // Expires: 60,
+    //     // ContentType: 'image/jpeg',
+    //     // ACL: 'public-read'
+    // }
+    // s3.putObject(params, function (err, data) {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         console.log("Successfully uploaded data to myBucket/myKey:", data);
 
-        }
-    });
+    //     }
+    // });
 
     // const imagePath = path.join(process.cwd(), '/public/images');
     // const fileUpload = new Resize(imagePath);
