@@ -1,12 +1,13 @@
 import express  from 'express';
+import '@babel/polyfill';
 import expressValidator from 'express-validator';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 
-import routeAuth from './src/routes/auth';
-import routePost from './src/routes/post';
-import routeImage from './src/routes/image';
-import routerUser from './src/routes/user';
+import routeAuth from './routes/auth/index';
+import routePost from './routes/post/index';
+import routeImage from './routes/image/index';
+import routerUser from './routes/user/index';
 
 
 const app = express();
@@ -58,7 +59,7 @@ app.use(methodOverride(function (req, res) {
   app.use('/image', routeImage);
   app.use('/user', routerUser);
 
-  app.listen(3000, function(){
-	console.log('Server running at port 3000: http://127.0.0.1:3000')
+  app.listen(process.env.PORT || 3000, function(){
+	console.log(`Server running at port 3000: http://127.0.0.1:${process.env.PORT || 3000}`)
   }
 )
