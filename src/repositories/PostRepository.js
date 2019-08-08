@@ -114,6 +114,9 @@ const getListPostHome = async (req, res, next) => {
             include: [
                 {model: Image},
                 {model: User}
+            ],
+            order: [
+                ['id','DESC']
             ]
         });
         res.send(responseData(true, null, null, postRow));
