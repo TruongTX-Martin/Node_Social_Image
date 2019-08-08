@@ -15,4 +15,8 @@ app.get('/get_all_home', (req, res, next) => {
     reposFactory.post.getListPostHome(req, res);
 })
 
+app.get('/get_all_user', (req, res, next) => {
+    reposFactory.post.getListPostUser(req, res);
+})
+
 module.exports = app;

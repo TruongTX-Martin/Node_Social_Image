@@ -123,6 +123,26 @@ const getListPostHome = async (req, res, next) => {
     })
 }
 
+const getListPostUser = async (req, res, next) => {
+    validateToken(req, res, async (user) => {
+        if(!user) return;
+        const userId = req.sanitize('user_id').escape().trim();
+        const postRow = await Post.findAll({
+            where: {
+               user_id: userId
+            },
+            include: [
+                {model: Image},
+                {model: User}
+            ],
+            order: [
+                ['id','DESC']
+            ]
+        });
+        res.send(responseData(true, null, null, postRow));
+    })
+}
+
 
 
 const postRepository = {
@@ -130,7 +150,8 @@ const postRepository = {
     likePost,
     unlikePost,
     commentPost,
-    getListPostHome
+    getListPostHome,
+    getListPostUser
 }
 
 export default postRepository;
