@@ -8,8 +8,8 @@ import {
 } from '../utils';
 
 aws.config.update({
-    accessKeyId: "AKIAIIK5J7CSWRN5JSRA",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAJCRFESEQRHECM6AA",
+    secretAccessKey: "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",
 });
 const s3 = new aws.S3();
 const ImageLikes = database.image_likes;
