@@ -8,8 +8,8 @@ import {
 } from '../utils';
 
 aws.config.update({
-    accessKeyId: "AKIAIFBIMIDFCN2VBQSA",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAIIK5J7CSWRN5JSRA",
+    secretAccessKey: "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",
 });
 const s3 = new aws.S3();
 const ImageLikes = database.image_likes;
@@ -22,7 +22,7 @@ const uploadImage = async (req, res) => {
         const newName = req.file.originalname.split('.');
         const extension = newName[newName.length - 1];
         const name = time + '.' + extension;
-        const myBucket = 'truongtechnosocialimage';
+        const myBucket = 'socialimagemartin';
         const params = {
             Bucket: myBucket,
             Key: name,
